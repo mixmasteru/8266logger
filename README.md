@@ -6,6 +6,8 @@
 - DHT22 tempratur and humidity sensor
 - save data in REST API
 
+![nodemcu](http://nodemcu.com/images/thumbnail/c1s.jpg_450x300.jpg)
+
 ### install
 
 - install Arduino IDE > 1.6.2 https://www.arduino.cc/en/Main/Software
