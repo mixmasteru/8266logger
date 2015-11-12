@@ -9,9 +9,9 @@
 const char* ssid     = "wlan name";
 const char* password = "pwd";
 //no http:// 
-const char* host     = "sub.name.tld";
+const char* host     = "sub.dom.tld";
 //base64(user:pwd)
-const char* base64   = "BASE64STRING";
+const char* base64   = "BASE64STR";
 
 #define DHTPIN 14    // what pin we're connected to
 #define DHTTYPE DHT22   // DHT 22  (AM2302)
@@ -68,15 +68,16 @@ void reqApi()
   }
   
   // We now create a URI for the request
-  String url = "/t/";
+  String url = "/t/temp/1/20150101-000000/"+ String(value) +"/";
   Serial.print("Requesting URL: ");
   Serial.println(url);
   
   // This will send the request to the server
-  client.print(String("GET ") + url + " HTTP/1.1\r\n" +
+  client.print(String("PUT ") + url + " HTTP/1.1\r\n" +
                "Host: " + host + "\r\n" + 
                "Authorization: Basic " + base64 + "\r\n" +
-               "Connection: close\r\n\r\n");
+               "Connection: close\r\n\r\n");                
+               
   delay(100);
   
   // Read all the lines of the reply from server and print them to Serial
