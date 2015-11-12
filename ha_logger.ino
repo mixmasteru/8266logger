@@ -1,11 +1,17 @@
-// Example testing sketch for various DHT humidity/temperature sensors
+/* HA LOGGER
+ * a node mcu base data logger
+ * saves data via restful API
+ */ 
 
 #include "DHT.h"
 #include <ESP8266WiFi.h>
  
-const char* ssid     = "";
-const char* password = "";
-const char* host     = "";
+const char* ssid     = "wlan name";
+const char* password = "pwd";
+//no http:// 
+const char* host     = "sub.name.tld";
+//base64(user:pwd)
+const char* base64   = "BASE64STRING";
 
 #define DHTPIN 14    // what pin we're connected to
 #define DHTTYPE DHT22   // DHT 22  (AM2302)
@@ -43,7 +49,13 @@ void setup() {
 void loop() {
   delay(5000);
   ++value;
- 
+
+  reqApi();
+  
+}
+
+void reqApi()
+{
   Serial.print("connecting to ");
   Serial.println(host);
   
@@ -56,15 +68,16 @@ void loop() {
   }
   
   // We now create a URI for the request
-  String url = "/pong.php";
+  String url = "/t/";
   Serial.print("Requesting URL: ");
   Serial.println(url);
   
   // This will send the request to the server
   client.print(String("GET ") + url + " HTTP/1.1\r\n" +
                "Host: " + host + "\r\n" + 
+               "Authorization: Basic " + base64 + "\r\n" +
                "Connection: close\r\n\r\n");
-  delay(10);
+  delay(100);
   
   // Read all the lines of the reply from server and print them to Serial
   while(client.available()){
@@ -72,8 +85,8 @@ void loop() {
     Serial.print(line);
   }
   
-  Serial.println();
   Serial.println("closing connection");
+  Serial.println();
 }
 
 
