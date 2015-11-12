@@ -3,7 +3,7 @@
 
 - [Nodemcu](http://nodemcu.com/index_en.html) with Arduino IDE
 - based on [ESP8266](http://www.esp8266.com) with GPIOs
-- DHT22 tempratur and humidity sensor
+- DHT22 temperatur and humidity sensor
 - save data in REST API
 
 ![nodemcu](http://nodemcu.com/images/thumbnail/c1s.jpg_450x300.jpg)
@@ -17,3 +17,9 @@
 - install esp8266 platform 
 - select NodeMCU 1.0 under "Tools > Board"
 - install DHT lib from http://playground.arduino.cc/Main/DHTLib
+
+## To Do
+- read DHT22 temperatur and humidity
+- ir serial com for eHz
+- ir serial com for Sensus PolluCom E
+- save data via rest ha api
