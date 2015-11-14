@@ -18,6 +18,7 @@
 - install esp8266 platform 
 - select NodeMCU 1.0 under "Tools > Board"
 - install DHT lib from http://playground.arduino.cc/Main/DHTLib
+- install [Time Lib](https://github.com/PaulStoffregen/Time) from via Library Manager
 
 ## Notes
 - if the API is protected by Basic Auth, the base64(user:password) string must be provided in the http header
