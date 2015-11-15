@@ -15,11 +15,14 @@ const char* host     = "sub.dom.tld";
 //base64(user:pwd)
 const char* base64   = "BASE64STR";
 
+const char* vapi = "t";
+
 #define DHTPIN 14    // what pin we're connected to
 #define DHTTYPE DHT22   // DHT 22  (AM2302)
 DHT dht(DHTPIN, DHTTYPE);
 
 //--------------- time stuff -----------------------------
+//its a lot of code only for getting the time, get the time from API is also a way...
 // NTP Servers:
 IPAddress timeServer(132, 163, 4, 101); // time-a.timefreq.bldrdoc.gov
 // IPAddress timeServer(132, 163, 4, 102); // time-b.timefreq.bldrdoc.gov
@@ -30,6 +33,11 @@ unsigned int localPort = 8888;  // local port to listen for UDP packets
 //--------------- time stuff -----------------------------
 
 int value = 0;
+
+struct temphum {
+  float temp;
+  float hum;
+};
 
 void setup() {
   Serial.begin(115200);
@@ -66,15 +74,25 @@ void setup() {
 }
 
 void loop() {
-  delay(5000);
+  delay(10000);
   ++value;
   
   printTime();
-  //reqApi();
+  String t = getTime();
+  temphum th = readdht();
+  Serial.println("t:"+String(th.temp)+"h:"+String(th.hum));
+  //saveTemp(t, temp);
   
 }
 
-void reqApi()
+void saveTemp(String t, float temp)
+{
+  String url = "/"+ String(vapi) + "/temp/1/"+ t +"/"+ String(temp) +"/";
+  Serial.println("url: " + url);
+  //putApi(url);
+}
+
+void putApi(String url)
 {
   Serial.print("connecting to ");
   Serial.println(host);
@@ -88,7 +106,6 @@ void reqApi()
   }
   
   // We now create a URI for the request
-  String url = "/t/temp/1/20150101-000000/"+ String(value) +"/";
   Serial.print("Requesting URL: ");
   Serial.println(url);
   
@@ -111,8 +128,10 @@ void reqApi()
 }
 
 
-void readdht()
+struct temphum readdht()
 {
+  temphum th = {0,0};
+  
   // Reading temperature or humidity takes about 250 milliseconds!
   // Sensor readings may also be up to 2 seconds 'old' (its a very slow sensor)
   float h = dht.readHumidity();
@@ -122,7 +141,9 @@ void readdht()
   // Check if any reads failed and exit early (to try again).
   if (isnan(h) || isnan(t)) {
     Serial.println("Failed to read from DHT sensor!");
-    return;
+  }else{
+    th.temp = t;
+    th.hum = h;
   }
   
   Serial.print("Humidity: ");
@@ -130,13 +151,29 @@ void readdht()
   Serial.print(" %\t");
   Serial.print("Temperature: ");
   Serial.print(t);
+  Serial.println();
+  
+  return th;
+}
+
+//returns time as YYYYMMDD-HHMMSS
+String getTime(){
+  String out = String(year());
+  out += formatInt(month());
+  out += formatInt(day());
+  out += "-";
+  out += formatInt(hour());
+  out += formatInt(minute());
+  out += formatInt(second());
+  return out;
 }
 
 void printTime(){
-  // digital clock display of the time
-  printDigits(hour());
-  printDigits(minute());
-  printDigits(second());
+  Serial.print(hour());
+  Serial.print(":");
+  Serial.print(minute());
+  Serial.print(":");
+  Serial.print(second());
   Serial.print(" ");
   Serial.print(day());
   Serial.print(".");
@@ -146,12 +183,13 @@ void printTime(){
   Serial.println(); 
 }
 
-void printDigits(int digits){
-  // utility for digital clock display: prints preceding colon and leading 0
-  Serial.print(":");
-  if(digits < 10)
-    Serial.print('0');
-  Serial.print(digits);
+// utility for formating ints, adds leading 0
+String formatInt(int digit){
+  String out = String(digit);
+  if(digit < 10)
+    out = "0"+out;
+  
+  return out;
 }
 
 /*-------- NTP code ----------*/
