@@ -16,6 +16,7 @@ const char* host     = "sub.dom.tld";
 const char* base64   = "BASE64STR";
 
 const char* vapi = "t";
+const int device_id = 1;
 
 #define DHTPIN 14    // what pin we're connected to
 #define DHTTYPE DHT22   // DHT 22  (AM2302)
@@ -87,7 +88,7 @@ void loop() {
 
 void saveTemp(String t, float temp)
 {
-  String url = "/"+ String(vapi) + "/temp/1/"+ t +"/"+ String(temp) +"/";
+  String url = "/"+ String(vapi) + "/temp/" + String(device_id) + "/"+ t +"/"+ String(temp) +"/";
   Serial.println("url: " + url);
   //putApi(url);
 }
