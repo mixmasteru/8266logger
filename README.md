@@ -17,8 +17,13 @@
 - select Boards Manager from "Tools > Board"
 - install esp8266 platform 
 - select NodeMCU 1.0 under "Tools > Board"
-- install DHT lib from http://playground.arduino.cc/Main/DHTLib
-- install [Time Lib](https://github.com/PaulStoffregen/Time) from via Library Manager
+- install [DHT Lib](https://github.com/adafruit/DHT-sensor-library) via Library Manager
+- install [Time Lib](https://github.com/PaulStoffregen/Time) via Library Manager
+
+## Dependencies
+- [esp8266 Arduino](https://github.com/esp8266/Arduino)
+- [DHT lib](https://github.com/adafruit/DHT-sensor-library)
+- [Time Lib](https://github.com/PaulStoffregen/Time)
 
 ## Notes
 - if the API is protected by Basic Auth, the base64(user:password) string must be provided in the http header
