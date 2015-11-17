@@ -90,7 +90,14 @@ void saveTemp(String t, float temp)
 {
   String url = "/"+ String(vapi) + "/temp/" + String(device_id) + "/"+ t +"/"+ String(temp) +"/";
   Serial.println("url: " + url);
-  //putApi(url);
+  putApi(url);
+}
+
+void saveHum(String t, float hum)
+{
+  String url = "/"+ String(vapi) + "/temp/" + String(device_id) + "/"+ t +"/"+ String(hum) +"/";
+  Serial.println("url: " + url);
+  putApi(url);
 }
 
 void putApi(String url)
