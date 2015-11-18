@@ -75,14 +75,15 @@ void setup() {
 }
 
 void loop() {
-  delay(10000);
   ++value;
   
   printTime();
   String t = getTime();
   temphum th = readdht();
   Serial.println("t:"+String(th.temp)+"h:"+String(th.hum));
-  //saveTemp(t, temp);
+  saveTemp(t, th.temp);
+  saveHum(t, th.hum);
+  delay(60000);
   
 }
 
@@ -95,7 +96,7 @@ void saveTemp(String t, float temp)
 
 void saveHum(String t, float hum)
 {
-  String url = "/"+ String(vapi) + "/temp/" + String(device_id) + "/"+ t +"/"+ String(hum) +"/";
+  String url = "/"+ String(vapi) + "/humi/" + String(device_id) + "/"+ t +"/"+ String(hum) +"/";
   Serial.println("url: " + url);
   putApi(url);
 }
