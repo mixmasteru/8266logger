@@ -79,6 +79,7 @@ void loop() {
   
   printTime();
   String t = getTime();
+  //@todo add retry here if values = 0
   temphum th = readdht();
   Serial.println("t:"+String(th.temp)+"h:"+String(th.hum));
   saveTemp(t, th.temp);
