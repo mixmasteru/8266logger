@@ -7,7 +7,7 @@
 #include <WiFiUdp.h>
 #include "DHT.h"
 #include <TimeLib.h>
- 
+
 const char* ssid     = "wlan name";
 const char* password = "pwd";
 //no http:// 
@@ -18,6 +18,7 @@ const char* base64   = "BASE64STR";
 const char* vapi = "t";
 const int device_id = 1;
 
+#define LED D0 // built in led
 #define DHTPIN 14    // what pin we're connected to
 #define DHTTYPE DHT22   // DHT 22  (AM2302)
 DHT dht(DHTPIN, DHTTYPE);
@@ -84,6 +85,7 @@ void loop() {
   Serial.println("t:"+String(th.temp)+"h:"+String(th.hum));
   saveTemp(t, th.temp);
   saveHum(t, th.hum);
+  blinkLED();
   delay(60000);
   
 }
@@ -137,23 +139,31 @@ void putApi(String url)
   Serial.println();
 }
 
-
+//trys to read 
 struct temphum readdht()
 {
   temphum th = {0,0};
+  float h,t;
+  int cnt = 0;
   
-  // Reading temperature or humidity takes about 250 milliseconds!
-  // Sensor readings may also be up to 2 seconds 'old' (its a very slow sensor)
-  float h = dht.readHumidity();
-  // Read temperature as Celsius (the default)
-  float t = dht.readTemperature();
-
-  // Check if any reads failed and exit early (to try again).
-  if (isnan(h) || isnan(t)) {
-    Serial.println("Failed to read from DHT sensor!");
-  }else{
-    th.temp = t;
-    th.hum = h;
+  while(cnt++ < 10)
+  {
+    // Reading temperature or humidity takes about 250 milliseconds!
+    // Sensor readings may also be up to 2 seconds 'old' (its a very slow sensor)
+    float h = dht.readHumidity();
+    // Read temperature as Celsius (the default)
+    float t = dht.readTemperature();
+  
+    // Check if any reads failed and exit early (to try again).
+    if (isnan(h) || isnan(t)){
+      Serial.println("Failed to read from DHT sensor! try again");
+      delay(5000);
+      continue;  
+    }else{
+      th.temp = t;
+      th.hum = h;
+      break;
+    }
   }
   
   Serial.print("Humidity: ");
@@ -200,6 +210,13 @@ String formatInt(int digit){
     out = "0"+out;
   
   return out;
+}
+
+void blinkLED(){
+  digitalWrite(LED, LOW);
+  digitalWrite(LED, HIGH);
+  delay(500);
+  digitalWrite(LED, LOW);
 }
 
 /*-------- NTP code ----------*/
