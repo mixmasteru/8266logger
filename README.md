@@ -30,7 +30,9 @@
 - no "http://" is needed in the host var for the client
 
 ## To Do
-- read DHT22 temperatur and humidity
-- save data via rest ha api
+- ~~read DHT22 temperatur and humidity~~
+- ~~save data via rest ha api~~
+- ~~static update interval~~
+- flexibleupdate interval
 - ir serial com for eHz
 - ir serial com for Sensus PolluCom E
