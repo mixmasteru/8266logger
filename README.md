@@ -33,6 +33,8 @@
 - ~~read DHT22 temperatur and humidity~~
 - ~~save data via rest ha api~~
 - ~~static update interval~~
+- add watchdog
+- add "headbeat"
 - flexibleupdate interval
 - ir serial com for eHz
 - ir serial com for Sensus PolluCom E
