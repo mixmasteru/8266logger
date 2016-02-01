@@ -33,7 +33,7 @@
 - ~~read DHT22 temperatur and humidity~~
 - ~~save data via rest ha api~~
 - ~~static update interval~~
-- add watchdog
+- check watchdog, sometime it stops working
 - add "headbeat"
 - flexibleupdate interval
 - ir serial com for eHz
