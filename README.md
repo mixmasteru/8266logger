@@ -1,5 +1,5 @@
-# ha_logger - IOT
-## home automation data logger
+# 8266logger - IOT with esp8266 and arduino
+ ## home automation data logger
 
 - [Nodemcu](http://nodemcu.com/index_en.html) with Arduino IDE
 - based on [ESP8266](http://www.esp8266.com) with GPIOs
