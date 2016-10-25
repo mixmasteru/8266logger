@@ -15,7 +15,7 @@
 - start Arduino IDE, open Preferences window
 - put in http://arduino.esp8266.com/stable/package_esp8266com_index.json at Additional Board Manager URLs field
 - select Boards Manager from "Tools > Board"
-- install esp8266 platform 
+- install esp8266 platform
 - select NodeMCU 1.0 under "Tools > Board"
 - install [DHT Lib](https://github.com/adafruit/DHT-sensor-library) via Library Manager
 - install [Time Lib](https://github.com/PaulStoffregen/Time) via Library Manager
@@ -28,6 +28,10 @@
 ## Notes
 - if the API is protected by Basic Auth, the base64(user:password) string must be provided in the http header
 - no "http://" is needed in the host var for the client
+
+## Routing
+
+![routing](routing.png)
 
 ## To Do
 - ~~read DHT22 temperatur and humidity~~
