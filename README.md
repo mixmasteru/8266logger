@@ -7,7 +7,7 @@
 - ir serial com
 - save data in REST API
 
-![nodemcu](http://nodemcu.com/images/thumbnail/c1s.jpg_450x300.jpg)
+![nodemcu](nodemcu.jpg)
 
 ### install
 
